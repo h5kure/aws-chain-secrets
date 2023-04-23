@@ -31,7 +31,7 @@ class SecretsManager(Client):
         """
         initial setup
         :param region_name: AWS region name
-        :param secret_names: These are the secret names from which to read settings. The last name has priority.
+        :param secret_names: The secret names that come later has higher precedence..
         """
         self.secret_names = secret_names
         super().__init__(

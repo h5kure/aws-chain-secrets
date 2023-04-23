@@ -5,13 +5,13 @@ with open("README.rst", "r", encoding='utf-8') as readme:
 
 setuptools.setup(
     name="aws_chain_secrets",
-    version='1.0.0',
+    version='1.0.1',
     author="Hyouk Oh",
     author_email="h.5.kure@gmail.com",
     description="This aims to enable the use of one or more secrets from AWS SecretsManager.",
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    url="https://github.com/h5kure/aws-chain-secrets",
+    url="https://github.com/h5kure/aws_chain_secrets",
     packages=setuptools.find_packages(),
     package_data={"": ["py.typed"]},
     include_package_data=True,
