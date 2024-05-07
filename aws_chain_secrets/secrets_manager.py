@@ -70,10 +70,19 @@ class SecretsManager(Client):
     def set(self, secret_name: str, key, value):
         """
         set a `key: value` to the specified secret
-        :param secret_name: secret_name of AWS Secrets Manager
+        :param secret_name: secret_name of AWS Secrets Manager.
+         If None is given, the value is set to the highest priority secret (last given as a parameter) with key value.
+         If there is no secret with the given key,
+          it is registered as a new value in the secret with the highest priority.
         :param key: key of map
         :param value: value of map
         """
+        if secret_name is None:
+            for name in reversed(self._secrets.keys()):
+                if secret_name is None:
+                    secret_name = name
+                if key in self._secrets[name]:
+                    secret_name = name
         self._secrets[secret_name][key] = value
 
     def keys(self):

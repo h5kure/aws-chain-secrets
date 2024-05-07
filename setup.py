@@ -5,7 +5,7 @@ with open("README.rst", "r", encoding='utf-8') as readme:
 
 setuptools.setup(
     name="aws_chain_secrets",
-    version='1.0.1',
+    version='1.0.2',
     author="Hyouk Oh",
     author_email="h.5.kure@gmail.com",
     description="This aims to enable the use of one or more secrets from AWS SecretsManager.",

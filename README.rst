@@ -100,6 +100,8 @@ change value
 """"""""""""
 
 You can change (or add) the value of a specified secret by name.
+If `None` is given, the value is set to the highest priority secret (last given as a parameter) with key value.
+If there is no secret with the given key, it is registered as a new value in the secret with the highest priority.
 
 .. code-block:: python
 
