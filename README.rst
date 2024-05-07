@@ -100,7 +100,9 @@ change value
 """"""""""""
 
 You can change (or add) the value of a specified secret by name.
+
 If `None` is given, the value is set to the highest priority secret (last given as a parameter) with key value.
+
 If there is no secret with the given key, it is registered as a new value in the secret with the highest priority.
 
 .. code-block:: python
@@ -111,6 +113,8 @@ update remote (AWS secrets manager) data from local
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
 You can update (upload) the values of a specified secret by name from local to remote.
+
+If `None` is given (if the parameter is omitted), the entire secrets are updated.
 
 .. code-block:: python
 

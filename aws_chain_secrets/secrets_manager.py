@@ -1,7 +1,7 @@
 import base64
 import json
 from collections import ChainMap
-from typing import Any, Type
+from typing import Any, Type, Optional
 
 from botocore.exceptions import ClientError
 
@@ -67,11 +67,11 @@ class SecretsManager(Client):
             return default
         return cast(value, casting_type)
 
-    def set(self, secret_name: str, key, value):
+    def set(self, secret_name: Optional[str], key, value):
         """
         set a `key: value` to the specified secret
         :param secret_name: secret_name of AWS Secrets Manager.
-         If None is given, the value is set to the highest priority secret (last given as a parameter) with key value.
+         If `None` is given, the value is set to the highest priority secret (last given as a parameter) with key value.
          If there is no secret with the given key,
           it is registered as a new value in the secret with the highest priority.
         :param key: key of map
@@ -102,12 +102,16 @@ class SecretsManager(Client):
             self._secrets[secret_name].clear()
             self._secrets[secret_name].update(self._get_secrets(secret_name))
 
-    def update(self, secret_name: str):
+    def update(self, secret_name: Optional[str] = None):
         """
         update specified secrets from local to AWS
-        :param secret_name: secret name of AWS Secrets Manager
+        :param secret_name: secret name of AWS Secrets Manager. If `None` is given, updates the entire secrets.
         """
-        self._client.update_secret(SecretId=secret_name, SecretString=json.dumps(self._secrets[secret_name]))
+        if secret_name is None:
+            for name in self._secrets.keys():
+                self.update(name)
+        else:
+            self._client.update_secret(SecretId=secret_name, SecretString=json.dumps(self._secrets[secret_name]))
 
     def _get_secrets(self, secret_name: str) -> dict:
         """
